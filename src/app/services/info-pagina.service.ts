@@ -12,30 +12,29 @@ export class InfoPaginaService {
   public infoEquipo: Equipo
   public cargado: boolean = false
   public cargadoEquipo: boolean = false
-  public urlEquipo: string = "https://angular-html-andres.firebaseio.com/equipo.json"
+  public urlFirebase: string = "https://angular-html-andres.firebaseio.com"
 
   constructor(private _http: HttpClient) {
     this.cargarInfo()
     this.cargarEquipo()
   }
 
-  private cargarInfo() {
+  public cargarInfo() {
     //Leer el archivo Json
     this._http.get('assets/data/data-pages.json').subscribe(
       (resp: infoPages) => {
         this.cargado = true
         this.info = resp
-        console.log(this.info)
+        return this.info
       }
     )
   }
 
-  private cargarEquipo(){
-    this._http.get(this.urlEquipo).subscribe(
+  public cargarEquipo(){
+    this._http.get(this.urlFirebase + '/equipo.json').subscribe(
       (resp: Equipo) => {
         this.cargadoEquipo = true
         this.infoEquipo = resp
-        console.log(this.infoEquipo)
       }
     )
   }
